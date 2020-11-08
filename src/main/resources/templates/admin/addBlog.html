@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>新增博客</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/admin_index.css}">
+    <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css" />
+    <link th:href="@{/js/editormd/css/editormd.min.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <div class="ui teal segment">
+        <form class="ui form">
+            <h4 class="ui dividing header">发布文章</h4>
+            <div class="field">
+                <div class="two fields">
+                    <div class="field">
+                        <input type="text" name="shipping[title]" placeholder="*请输入文章标题（必填）">
+                    </div>
+                    <div class="field">
+                        <div class="ui left labeled action input">
+                            <div class="ui selection fluid multiple search dropdown">
+                                <input type="hidden" name="tag">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">标签</div>
+                                <div class="menu">
+                                    <div class="item" data-value="1">猪</div>
+                                    <div class="item" data-value="2">狗</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                    <div class="two fields">
+                        <div class="field">
+                            <input type="text" name="shipping[url]" placeholder="请输入自定义路径,如springboot-mybatis默认为id">
+                        </div>
+                        <div class="field">
+                            <div class="ui left labeled action input">
+                                <div class="ui selection fluid multiple search dropdown">
+                                    <input type="hidden" name="tag">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">分类</div>
+                                    <div class="menu">
+                                        <div class="item" data-value="1">Java</div>
+                                        <div class="item" data-value="2">JavaScript</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="field">
+                <div id="md-content" style="z-index: 1 !important;">
+                    <textarea placeholder="博客内容" name="content" style="display: none">
+                        [TOC]
+#### Disabled options
+
+- TeX (Based on KaTeX);
+- Emoji;
+- Task lists;
+- HTML tags decode;
+- Flowchart and Sequence Diagram;
+                    </textarea>
+                </div>
+            </div>
+            <div class="field">
+                <div class="field">
+                    <a href="#" class="ui button">返回文章列表</a>
+                    <a href="#" class="ui teal button">保存文章</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+    <script th:src="@{/js/editormd/editormd.min.js}"></script>
+
+<script>
+
+    // 初始化MarkDown编辑器
+    var testEditor;
+
+    $(function() {
+        testEditor = editormd("md-content", {
+            width   : "100%",
+            height  : 640,
+            syncScrolling : "single",
+            path    : "/js/editormd/lib/"
+        });
+    });
+
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+</script>
+</body>
+</html>

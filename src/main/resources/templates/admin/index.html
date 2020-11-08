@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理界面</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/admin_index.css}">
+</head>
+<body>
+
+<!-- 侧边栏-->
+<div id="sidebar">
+    <div class="sidebar-div1">
+        <img class="ui avatar image sidebar-img1" src="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1351337816,1178730997&fm=26&gp=0.jpg"><span>my blog</span>
+    </div>
+    <div class="sidebar-div1">
+        <img class="ui avatar image sidebar-img1" src="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1020771565,2453337692&fm=26&gp=0.jpg"><span>何锐</span>
+    </div>
+    <div class="ui accordion">
+
+        <!-- Dashboard -->
+        <div class="title active">
+            <i class="dropdown icon"></i>
+            <span>Dashboard</span>
+        </div>
+        <div class="content active">
+            <p><i class="home icon"></i><a href="javascript:loadHTML('/admin/Dashboard.html')">Dashboard</a></li></p>
+            <p><i class="edit outline icon"></i><a href="javascript:loadHTML('/admin/addBlog.html')">发布博客</a></li></p>
+        </div>
+
+        <!-- 管理模块菜单 -->
+        <div class="title">
+            <i class="dropdown icon"></i>
+            <span>管理模块</span>
+        </div>
+        <div class="content">
+            <p><i class="list alternate outline icon"></i><a href="javascript:loadHTML('/admin/blog_list.html')">博客管理</a></li></p>
+            <p><i class="comment alternate outline icon"></i><a href="javascript:loadHTML('/admin/comment_list.html')">评论管理</a></li></p>
+            <p><i class="bookmark icon"></i><a href="javascript:loadHTML('/admin/type_list.html')">分类管理</a></li></p>
+            <p><i class="tags icon"></i><a href="javascript:loadHTML('/admin/tags_list.html')">标签管理</a></li></p>
+            <p><i class="paperclip icon"></i><a href="javascript:loadHTML('/admin/friend_list.html')">友情链接</a></li></p>
+        </div>
+
+        <!-- 系统管理菜单 -->
+        <div class="title">
+            <i class="dropdown icon"></i>
+            <span>系统管理</span>
+        </div>
+        <div class="content">
+            <p><i class="wrench icon"></i><a href="javascript:loadHTML('setting.html')">系统配置</a></li></p>
+            <p><i class="key icon"></i><a href="javascript:loadHTML('updatePassword.html')">修改密码</a></li></p>
+            <p><i class="power off icon"></i><a href="#">安全退出</a></li></p>
+        </div>
+    </div>
+</div>
+
+<!-- 右边top-->
+<div id="top" class="ui secondary segment">
+    <p>
+        <i class="sliders horizontal icon"></i>
+        <span style="color: gray;padding-left: 10px">Dashboard</span>
+        <span class="top-icon2"><i class="user icon"></i><span style="color: gray;margin-left: 5px;">作者</span></span>
+        <span class="top-icon1"><i class="paper plane icon"></i><span style="color: gray;margin-left: 5px;">博客首页</span></span>
+    </p>
+</div>
+
+<!-- 展示页面 -->
+<div class="content1">
+
+</div>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script>
+    $('.ui.accordion').accordion();
+
+    $(function () {
+        $(".content1").load("Dashboard.html");
+    });
+
+    function loadHTML(url) {
+        $(".content1").load(url);
+    }
+
+    $(".content p").each(function (i) {
+        $(this).click(function () {
+            $(this).addClass("active1");
+            $(".content p").siblings().removeClass("active1");
+            $(this).addClass("active1");
+        });
+    });
+
+</script>
+</body>
+</html>

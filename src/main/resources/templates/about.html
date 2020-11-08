@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>关于我</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/about.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+<nav id="herui" class="navbar" role="navigation" th:replace="index::nav">
+    <div class="container-fluid  navbar-fixed-top">
+        <div class="navbar-header" id="nav-div-1">
+            <h4 id="h4">Personal blog</h4>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse" style="float: right">
+            <ul class="nav navbar-nav" id="nav-ul-1">
+                <li><a href="index.html">主页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="friend.html">友链</a></li>
+                <li><a href="#">GITHUB</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="d1">
+        <p id="p1">我是何锐</p>
+        <p id="p2"><span>2017-03-12</span> <span>0条评论</span> <span>221浏览</span></p>
+        <div>
+            世界上有个很可爱的人
+        </div>
+        <div>
+            现在这个人就在看这句话
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div style="width: 100%;height: auto;">
+        <h4><span style="color: #2e6da4;margin-right: 10px;">#</span>About me</h4>
+        <p style="margin-top: 15px">我是何锐，一名java小白，誓将无线的学习，徘徊在0和1的宇宙中，技术一般，但是也渴望着进步，同时也努力的活着</p>
+        <p style="margin-top: 15px">相信浏览这段话的你也指定，学习很无聊，甚至有时候显得很无助，我也想告诉你，成长就是这样一件很残酷的事情
+            ，任何成功都是一蹴而就，需要坚持，需要付出，需要你的毅力，短期可能看不到收获，因为破茧成蝶所耗费的时间不止一天</p>
+    </div>
+    <div style="width: 100%;height: auto;margin-top: 40px">
+        <h4><span style="color: #2e6da4;margin-right: 10px;">#</span>Contact</h4>
+        <ul>
+            <li>我的邮箱：1185252665@qq.com</li>
+            <li>QQ技术交流群：796794009</li>
+            <li>我的网站：http://13blog.site</li>
+        </ul>
+    </div>
+
+    <div style="width: 100%;height: auto;margin-top: 40px;">
+        <h4><span style="color: #2e6da4;margin-right: 10px;">#</span>Quote</h4>
+
+        <ul>
+            <li>Steve Jobs</li>
+        </ul>
+        <div style="width: 80%;height: 40px;background-color:#EBF8F2;margin-bottom: 20px;margin-top: 20px;">
+            <span style="width: 5px;height: 100%;background-color: #42B983;display: block;float: left;"></span>
+            <p style="margin-left: 10px;line-height: 40px;float: left;color: gray">Stay hungry,Stay foolish</p>
+        </div>
+
+        <ul>
+            <li>Kahlil Gibran</li>
+        </ul>
+        <div style="width: 80%;height: 240px;background-color:#EBF8F2;margin-bottom: 20px;margin-top: 20px;">
+            <span style="width: 5px;height: 100%;background-color: #42B983;display: block;float: left;"></span>
+            <p style="margin-left: 10px;line-height: 30px;float: left;color: gray;">The FIRST TIME WHEN I saw her being meek that she might attain height.</p>
+            <p style="margin-left: 10px;line-height: 20px;float: left;color: gray;"> The third TIME WHEN she was given TO choose BETWEEN the hard AND the easy, AND she chose the easy.</p>
+            <p style="margin-left: 10px;line-height: 20px;float: left;color: gray;"> The fourth TIME WHEN she COMMITTED a wrong, AND comforted herself that others also COMMIT wrong.</p>
+            <p style="margin-left: 10px;line-height: 20px;float: left;color: gray;"> The fifth TIME WHEN she forbore FOR weakness, AND attributed her patience TO strength.</p>
+            <p style="margin-left: 10px;line-height: 20px;float: left;color: gray;"> The sixth TIME WHEN she despised the ugliness of a face, AND knew NOT that it was ONE of her own masks.</p>
+            <p style="margin-left: 10px;line-height: 20px;float: left;color: gray;"> AND the seventh TIME WHEN she sang a song of praise, AND deemed it a virtue.</p>
+            <p style="margin-left: 10px;line-height: 20px;float: left;color: gray;"> The SECOND TIME WHEN I saw her limping BEFORE the crippled.</p>
+        </div>
+        <p style="color: gray;font-size: 10px;">本站文章除注明转载/出处外,皆为作者原创,欢迎转载,但未经作者同意必须保留此段声明,且在文章页面明显位置给出原文链接,否则保留追究法律责任的权利。</p>
+    </div>
+
+    <hr style="margin-top: 50px;color:#F6F6F6; "/>
+    <hr style="color: #E1E1E1;"/>
+
+    <!-- 评论 -->
+    <div style="width: 100%;height: auto;">
+        <p style="width: 100%;height: 50px;line-height: 50px;text-align: center">添加评论</p>
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" id="username" placeholder="(*必填）怎么称呼你？">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" id="email" placeholder="(*必填）你的联系邮箱">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" id="url" placeholder="你的网站地址（可不填）">
+            </div>
+            <div class="form-group">
+                <div class="col-md-6">
+                    <input type="text" name="code" placeholder="(*必填）你的联系邮箱" class="form-control" style="margin-left: -13px;margin-bottom: 10px;"/>
+                </div>
+                <div class="col-md-6">
+                    <label style="float:left"><img src="#"/></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea style="width: 100%;height: 150px;" placeholder="(*必填）请输入你的评论" id="comment"></textarea>
+            </div>
+            <div class="form-group" style="text-align: center">
+                <button type="submit" class="btn btn-primary">提交</button>
+            </div>
+        </form>
+
+    </div>
+
+
+</div>
+
+<footer id="footer" class="navbar" role="navigation" th:replace="index::footer">
+    <div id="footer-div" class="container-fluid">
+        <p>🄫your personal blog. have fun ·  Powered by 2019 何锐</p>
+        <p>ICP 浙ICP备17008806号-3 Theme Amaze by spiritree & Jiahao.Zhang </p>
+    </div>
+</footer>
+</body>
+</html>

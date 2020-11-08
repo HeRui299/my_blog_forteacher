@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>友链</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/friend.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+<body>
+<nav id="herui" class="navbar" role="navigation" th:replace="index::nav">
+    <div class="container-fluid  navbar-fixed-top">
+        <div class="navbar-header" id="nav-div-1">
+            <h4 id="h4">Personal blog</h4>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse" style="float: right">
+            <ul class="nav navbar-nav" id="nav-ul-1">
+                <li><a href="index.html">主页</a></li>
+                <li><a href="about.html">关于我</a></li>
+                <li><a href="friend.html">友链</a></li>
+                <li><a href="#">GITHUB</a></li>
+            </ul>
+        </div>
+    </div>
+    <p id="p1" class="text-center">我不怕千万人阻挡，只怕自己投降</p>
+</nav>
+
+<div class="container">
+    <ul>
+        <li><span style="font-weight: bold">友链</span></li>
+        <ul id="ul1" style="margin-top: 20px;">
+
+        </ul>
+    </ul>
+    <ul>
+        <li><span style="font-weight: bold">推荐网站</span></li>
+        <ul id="ul2" style="margin-top: 20px;">
+
+        </ul>
+    </ul>
+    <ul>
+        <li><span style="font-weight: bold">个人链接</span></li>
+        <ul id="ul3" style="margin-top: 20px;">
+
+        </ul>
+    </ul>
+    <ul>
+        <h4 style="font-weight: bold">链接须知</h4>
+        <p style="margin-top: 20px;">欢迎互换友链不过请确定网站可以正常运营</p>
+        <p>我的邮箱是 2449207463@qq.com,格式要求如下</p>
+        <ul style="margin-top: 10px;">
+            <li>网站名称：13blog</li>
+            <li>网站链接：http://13blog.site</li>
+            <li>网站描述：何锐的个人博客</li>
+        </ul>
+        <p style="margin-top: 20px;">请保证自己的链接长期有效，不然可能会被清理</p>
+    </ul>
+</div>
+
+
+<footer id="footer" class="navbar" role="navigation" th:replace="index::footer">
+    <div id="footer-div" class="container-fluid">
+        <p>🄫your personal blog. have fun ·  Powered by 2019 何锐</p>
+        <p>ICP 浙ICP备17008806号-3 Theme Amaze by spiritree & Jiahao.Zhang </p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script>
+    $.get("/link",function (data) {
+        $(data).each(function (index) {
+            if(data[index].linkType == 0){
+                $("#ul1").append('<li><a href="'+data[index].linkUrl+'">'+data[index].linkName+'</a>'+data[index].linkDescription+'</li>');
+            }else if(data[index].linkType == 1){
+                $("#ul2").append('<li><a href="'+data[index].linkUrl+'">'+data[index].linkName+'</a>'+data[index].linkDescription+'</li>');
+            }else if(data[index].linkType == 2){
+                $("#ul3").append('<li><a href="'+data[index].linkUrl+'">'+data[index].linkName+'</a>'+data[index].linkDescription+'</li>');
+            }
+        })
+    })
+</script>
+</body>
+</html>

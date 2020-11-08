@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/admin_index.css}">
+    <base th:href="@{/}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+</head>
+<body>
+<div id="container" class="ui teal segment">
+    <div class="ui grid">
+        <div class="left aligned column">
+            <h3>博客管理</h3>
+        </div>
+    </div>
+    <div class="ui grid">
+        <div class="left aligned column">
+            <button class="ui primary button"><i class="plus icon"></i>新增</button>
+            <button class="ui positive button"><i class="edit icon"></i>修改</button>
+            <button class="ui Red button"><i class="trash alternate icon"></i>刪除</button>
+            <div class="ui small icon input">
+                <input type="text" placeholder="关键字（标题/分类）">
+            </div>
+            <button class="ui positive button"><i class="search icon"></i>搜索</button>
+        </div>
+    </div>
+    <div>
+        <table id="demo" lay-filter="test"></table>
+    </div>
+</div>
+<script th:src="@{/layui/layui.all.js}"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //执行渲染
+        table.render({
+            url:'/admin/listBlog',
+            method:'get',
+            elem: '#demo',
+            height: 'auto',
+            page:'true',
+            cols: [
+                [
+                    {type:'checkbox'},
+                    {field: 'blogTitle', title: '标题', width:250},
+                    {field: 'blogCoverImage', title: '预览图', width:210, sort: true},
+                    {field: 'blogViews', title: '浏览量', width:210},
+                    {field: 'blogStatus', title: '状态', width: 210},
+                    {field: 'blogCategoryName', title: '博客分类', width: 210, sort: true},
+                    {field: 'createTime', title: '添加时间', width: 210, sort: true,templet:function(d){
+                        return layui.util.toDateString(d.createTime,'yyyy-MM-dd HH:mm:ss');}
+                        }
+                ]
+            ]
+        });
+    });
+</script>
+</body>
+</html>

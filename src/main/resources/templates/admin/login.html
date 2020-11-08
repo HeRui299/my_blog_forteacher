@@ -1,0 +1,106 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>后台登录</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+</head>
+<body>
+<div class="box">
+    <h2>后台博客系统登录</h2>
+    <form>
+        <div class="inputBox">
+            <input type="text" name="loginUserName" autocomplete="off" required="" value="admin">
+            <label>用户名</label>
+        </div>
+        <div class="inputBox">
+            <input type="password" name="loginPassword" autocomplete="off" required="" value="123456">
+            <label>密码</label>
+        </div>
+        <div class="inputBox">
+            <input type="text" name="code" required="" autocomplete="off">
+            <label>验证码</label>
+        </div>
+        <button type="button" class="ui primary button" onclick="login()">登录</button>
+        <div style="float: right">
+            <img th:src="@{/admin/kaptcha}" id="kaptcha" onclick="chageKaptcha()" style="width: 80px;height: 45px">
+        </div>
+    </form>
+</div>
+<!-- 加载层 -->
+<div class="ui dimmer">
+    <div class="ui text loader">登录中</div>
+</div>
+
+<div class="autumn leaf" style="display: none">
+    <div class="div">
+
+    </div>
+    <div class="diva">
+        <span></span>
+    </div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script>
+        function chageKaptcha() {
+            //有些浏览器很智能发现请求的都是同一个请求就不会发起请求所以我们要骗一下浏览器，
+            // 每次都传个不同的参数
+            var path =  "/admin/kaptcha?p=" + Math.random();
+            $("#kaptcha").attr("src", path);
+        }
+
+    function login(){
+        var username = $("input[name='loginUserName']").val();
+        var password = $("input[name='loginPassword']").val();
+        var code = $("input[name='code']").val();
+
+        if(username == ""){
+            // $(".autumn leaf").css("display",'none');
+            $(".diva span").html("用户名不能为空")
+            $('.autumn.leaf')
+                .transition('swing up');
+            return;
+        }
+
+        if(password == ""){
+            $(".diva span").html("密码不能为空")
+            // $(".autumn leaf").css("display",'none');
+            $('.autumn.leaf')
+                .transition('swing up');
+            return;
+        }
+
+        if(code == ""){
+            $(".diva span").html("验证码不能为空")
+            $('.autumn.leaf')
+                .transition('swing up');
+            return;
+        }
+
+        $(".ui.dimmer").addClass("active");
+        // 异步登录
+        $.get("/admin/login",$("form").serialize(),function (data) {
+            if(data.code == 2){
+                $(".ui.dimmer").removeClass("active");
+                $(".diva span").html(data.msg);
+                $('.autumn.leaf')
+                    .transition('swing up');
+                return;
+            }
+
+            if(data.code==0){
+                window.location.href="/admin/index";
+            }else{
+                $(".ui.dimmer").removeClass("active");
+                $(".diva span").html(data.msg);
+                $('.autumn.leaf')
+                    .transition('swing up');
+                return;
+            }
+        });
+    }
+</script>
+</body>
+</html>

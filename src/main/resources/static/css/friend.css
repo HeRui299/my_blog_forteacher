@@ -1,0 +1,47 @@
+#herui{
+    height: 200px;
+    background-size: cover;
+    background-image: url('../img/sky.jpg');
+}
+
+#p1{
+    color: white;
+    font-size: 20px;
+    margin-top: 70px;
+}
+
+#nav-div-1 h4{
+    font-weight: bold;
+    color: white;
+}
+
+#nav-ul-1 li a{
+    font-weight: bold;
+    color: white;
+}
+
+#nav-ul-1 li a:hover{
+    background: none;
+    opacity: 1;
+}
+
+#footer{
+    background: #273547;
+    height: 120px;
+}
+
+#footer-div{
+    text-align: center;
+    color: white;
+    font-size: 12px;
+}
+
+#footer-div p:first-child{
+    margin-top: 40px;
+}
+
+ul{
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+}

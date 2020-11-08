@@ -1,0 +1,86 @@
+#herui{
+    height: 200px;
+    background-size: cover;
+    background-image: url('../img/sky.jpg');
+}
+
+#p1{
+    color: white;
+    font-size: 20px;
+    margin-top: 50px;
+}
+
+#nav-div-1 h4{
+    font-weight: bold;
+    color: white;
+}
+
+#nav-ul-1 li a{
+    font-weight: bold;
+    color: white;
+}
+
+#nav-ul-1 li a:hover{
+    background: none;
+    opacity: 1;
+}
+
+#content-div-1{
+    width: 100%;
+    height: 50px;
+    line-height: 60px;
+}
+.form-control-feedback {
+    line-height: 34px;
+    right: 10px;
+}
+#box {
+    height: 1px;
+    width: 100%;
+    background-color: #F0F0F0;
+}
+#in {
+    background-color: #40403F;
+    width: 23%;
+    height :100%;
+}
+
+#rightop-div{
+    width: 100%;
+    /*height: 300px;*/
+}
+
+#tag-div a{
+    margin:5px;
+}
+
+#rightop-div p{
+    font-size: 12px;
+    line-height: 40px;
+}
+
+#rightop-div-2{
+    width: 100%;
+    height: auto;
+}
+
+#rightop-div-2 p{
+    line-height: 30px;
+    font-size: 12px;
+    border-bottom:1px solid #F0F0F0;
+}
+
+#footer{
+    background: #273547;
+    height: 120px;
+}
+
+#footer-div{
+    text-align: center;
+    color: white;
+    font-size: 12px;
+}
+
+#footer-div p:first-child{
+    margin-top: 40px;
+}
