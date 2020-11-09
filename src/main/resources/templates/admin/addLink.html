@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>新增链接</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+    <base th:href="@{/}">
+</head>
+<body>
+<form class="layui-form" lay-filter="formTest">
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" name="linkId" th:if="${link!=null}" th:value="${link.linkId}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">网站名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="linkName" placeholder="请输入链接名称" lay-verify="linkName" autocomplete="off" class="layui-input" th:if="${link!=null}" th:value="${link.linkName}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">网站链接</label>
+        <div class="layui-input-block">
+            <input type="text" name="linkUrl" placeholder="请输入链接Url" lay-verify="linkUrl" autocomplete="off" class="layui-input" th:if="${link!=null}" th:value="${link.linkUrl}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">网站描述</label>
+        <div class="layui-input-block">
+            <input type="text" name="linkDescription" placeholder="请输入网站描述" lay-verify="LinkDescription" autocomplete="off" class="layui-input" th:if="${link!=null}" th:value="${link.linkDescription}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">排序值</label>
+        <div class="layui-input-block">
+            <input type="text" name="linkRank" placeholder="输入网站的排序值" lay-verify="linkRank" autocomplete="off" class="layui-input" th:if="${link!=null}" th:value="${link.linkRank}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script th:src="@{/layui/layui.all.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+<script>
+    layui.use(['form','jquery','layer'], function(){
+        var form = layui.form;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        // 表单验证
+        form.verify({
+            linkName:function(value,item){
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                    return '链接名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                    return '链接名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                    return '链接名不能全为数字';
+                }
+            },linkUrl:function (value,item) {
+                if (new RegExp("^[a-z-A-Z]+$").test(value)){
+                    return "链接Url请书写规范";
+                }
+            },LinkDescription:function (value,item) {
+                if (value == null || value == ""){
+                    return "网站描述不能为空"
+                }
+            }
+        });
+
+        // 监听表单提交
+        form.on('submit(demo1)', function(data){
+                // 提交表单数据
+                $.post("/admin/insertLink",data.field,function (data) {
+                    if(data.code == 0){
+                        layer_close();
+                        parent.layui.table.reload("idTest")
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                });
+                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+    });
+</script>
+</body>
+</html>

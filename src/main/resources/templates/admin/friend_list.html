@@ -1,10 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/admin_index.css}">
+    <base th:href="@{/}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
 </head>
 <body>
-    友情链接
+<div id="container" class="ui teal segment">
+    <div class="ui grid">
+        <div class="left aligned column">
+            <h3>友情链接管理</h3>
+        </div>
+    </div>
+    <!-- 头部工具栏 -->
+    <script type="text/html" id="toolbarDemo">
+        <div class="ui grid">
+            <div class="left aligned column">
+                <button class="ui primary button" lay-event="add"><i class="plus icon"></i>新增</button>
+                <button class="layui-btn layui-btn-danger" lay-event="delete"><i class="trash alternate icon"></i>刪除<span class="layui-badge " id="checkedNum">0</span></button>
+            </div>
+        </div>
+    </script>
+
+    <!-- table表格内的工具栏 -->
+    <script type="text/html" id="TableToolDemo">
+        <button class="ui mini positive button" lay-event="update"><i class="edit icon"></i>修改</button>
+    </script>
+
+    <div>
+        <table id="demo" lay-filter="test"></table>
+    </div>
+</div>
+<script th:src="@{/layui/layui.all.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //执行渲染
+        table.render({
+            url:'/admin/listLink',
+            method:'get',
+            width:'1300',
+            id : 'idTest',
+            defaultToolbar:false,
+            elem: '#demo',
+            height: 'auto',
+            page:true,
+            request:{pageName:'current',limitName:'size'},
+            toolbar: '#toolbarDemo',
+            cols: [
+                [
+                    {type:'checkbox'},
+                    {field: 'linkId',hide:true},
+                    {field: 'linkName', title: '网站名称'},
+                    {field: 'linkUrl', title: '网站链接', sort: true},
+                    {field: 'linkDescription', title: '网站描述'},
+                    {field: 'linkRank', title: '排序值'},
+                    {field: 'createTime', title: '添加时间',sort: true,templet:function(d){
+                            return layui.util.toDateString(d.createTime,'yyyy-MM-dd HH:mm:ss');}
+                    },
+                    {title: '操作',toolbar:'#TableToolDemo'}
+                ]
+            ]
+        });
+
+        // 监听checkbox
+        table.on('checkbox(test)',function(obj){
+            var checkStatus = table.checkStatus('idTest')
+                ,data = checkStatus.data;
+            $("#checkedNum").html(data.length);
+        });
+
+        //监听头部工具栏
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'add':
+                    layer_show('新增标签','/admin/addLink');
+                    break;
+                case 'delete':
+                    if(checkStatus.data.length==0){
+                        layer.msg("至少选中一行")
+                    }else{
+                        layer.confirm("确定删除<span style='color:red'>"+checkStatus.data.length+"</span>条数据?",function(index){
+                            layer.close(index);
+                            var isStr="";
+                            for(var i=0; i<checkStatus.data.length; i++){
+                                if(i!=checkStatus.data.length){ // 这里就是判断到最后一个，如果是最后一个不加逗号。
+                                    isStr += checkStatus.data[i].linkId+",";
+                                }else{
+                                    isStr += checkStatus.data[i].linkId;
+                                }
+                            }
+                            $.ajax({
+                                url:'/admin/deleteLink',
+                                type:'post',
+                                data:{"ids":isStr},
+                                beforeSend:function(){
+                                    layer.msg("正在删除中",{time:1000,icon:16},function(){
+                                    });
+                                },
+                                success:function(result){
+                                    if(result.msg=="删除成功"){
+                                        layer.msg("删除成功",{time:1000,icon:1},function(){
+                                            table.reload('idTest', {
+                                                url: '/admin/listLink'
+                                                ,page: {
+                                                    curr: 1 //重新从第 1 页开始
+                                                }
+                                            }, 'data');
+                                        });
+                                    }
+                                }
+                            });
+                        });
+                    }
+                    break;
+            };
+        });
+        // 监听表格内的工具栏
+        table.on('tool(test)', function(obj) {
+            var layEvent = obj.event;
+            var data = obj.data
+            if(layEvent === 'update'){
+                layer_show('编辑链接','/admin/toUpdateLink/'+data.linkId);
+            }
+        });
+    });
+</script>
 </body>
 </html>

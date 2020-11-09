@@ -1,4 +1,4 @@
-package com.herui.front.dao;
+package com.herui.common.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.herui.common.pojo.Config;

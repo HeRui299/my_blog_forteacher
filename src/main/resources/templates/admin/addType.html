@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>新增分类</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
+    <base th:href="@{/}">
+</head>
+<body>
+<form class="layui-form" lay-filter="formTest">
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" name="categoryId" th:if="${type!=null}" th:value="${type.categoryId}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">分类名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="categoryName" placeholder="请输入分类名称" lay-verify="typeName" autocomplete="off" class="layui-input" th:if="${type!=null}" th:value="${type.categoryName}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">分类图标名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="categoryIcon" lay-verify="icon" placeholder="输入Icon名称" autocomplete="off" class="layui-input" th:if="${type!=null}" th:value="${type.categoryIcon}">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<script th:src="@{/layui/layui.all.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+<script>
+    layui.use(['form','jquery','layer'], function(){
+        var form = layui.form;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        // 表单验证
+        form.verify({
+            icon:function (value,item) {
+                var isletter = /^[a-zA-Z]+$/.test(value);
+                if(!isletter){
+                    return "请填写layui中的icon样式";
+                }
+            },typeName:function(value,item){
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                    return '分类名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                    return '分类名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                    return '分了名不能全为数字';
+                }
+            }
+        });
+
+        // 监听表单提交
+        form.on('submit(demo1)', function(data){
+                // 提交表单数据
+                $.post("/admin/insertType",data.field,function (data) {
+                    if(data.code == 0){
+                        layer_close();
+                        parent.layui.table.reload("idTest")
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                });
+                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+    });
+</script>
+</body>
+</html>

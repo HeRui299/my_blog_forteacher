@@ -2,7 +2,7 @@ package com.herui.front.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.herui.common.pojo.*;
-import com.herui.front.service.*;
+import com.herui.common.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

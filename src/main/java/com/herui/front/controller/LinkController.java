@@ -1,7 +1,7 @@
 package com.herui.front.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.herui.common.pojo.Link;
-import com.herui.front.service.LinkServiceImpl;
+import com.herui.common.service.LinkServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

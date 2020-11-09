@@ -1,5 +1,6 @@
 package com.herui.common.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -11,8 +12,8 @@ import java.util.Date;
 @TableName("tb_link")
 public class Link {
 
-    @TableId("link_id")
-    private Integer link_id;
+    @TableId(value = "link_id",type = IdType.AUTO)
+    private Integer linkId;
 
     @TableField("link_type")
     private Integer linkType;
@@ -32,6 +33,6 @@ public class Link {
     @TableField("is_deleted")
     private boolean isDeleted;
 
-    @TableField("create_time")
+    @TableField(value = "create_time",update = "now()")
     private Date createTime;
 }

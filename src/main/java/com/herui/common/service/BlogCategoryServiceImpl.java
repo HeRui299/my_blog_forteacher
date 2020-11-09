@@ -1,7 +1,7 @@
-package com.herui.front.service;
+package com.herui.common.service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.herui.front.dao.BlogCategoryMapper;
+import com.herui.common.dao.BlogCategoryMapper;
 import com.herui.common.pojo.Blog_Category;
 import org.springframework.stereotype.Service;
 

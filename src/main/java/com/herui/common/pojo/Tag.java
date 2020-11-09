@@ -1,5 +1,6 @@
 package com.herui.common.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Data
 public class Tag {
 
-    @TableId("tag_id")
+    @TableId(value = "tag_id",type = IdType.AUTO)
     private Integer tagId;
 
     @TableField("tag_name")
@@ -20,7 +21,7 @@ public class Tag {
     @TableField("is_deleted")
     private boolean isDeleted;
 
-    @TableField("create_time")
+    @TableField(value = "create_time",update = "now()")
     private Date createTime;
 
 }

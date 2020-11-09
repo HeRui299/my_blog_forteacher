@@ -3,7 +3,6 @@ package com.herui.common.config;
 import com.herui.admin.controller.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
@@ -38,8 +37,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         registry.addViewController("/admin/friend_list.html").setViewName("admin/friend_list");
     }
 
-    @Override
-    protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/admin/**").excludePathPatterns("/admin/login","/admin/kaptcha","/admin");
-    }
+//    @Override
+//    protected void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(loginInterceptor).addPathPatterns("/admin/**").excludePathPatterns("/admin/login","/admin/kaptcha","/admin");
+//    }
 }

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.code.kaptcha.Producer;
 import com.herui.common.pojo.User;
 import com.herui.common.util.ResponseUtil;
-import com.herui.front.service.UserServiceImpl;
+import com.herui.common.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;

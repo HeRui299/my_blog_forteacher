@@ -1,10 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/admin_index.css}">
+    <base th:href="@{/}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
 </head>
 <body>
-    评论管理
+<div id="container" class="ui teal segment">
+    <div class="ui grid">
+        <div class="left aligned column">
+            <h3>评论管理</h3>
+        </div>
+    </div>
+    <div class="ui grid">
+        <div class="left aligned column">
+            <button class="ui primary button"><i class="check icon"></i>批量审核</button>
+            <button class="ui positive button"><i class="edit icon"></i>回复</button>
+            <button class="ui Red button"><i class="trash alternate icon"></i>批量删除</button>
+            <div class="ui small icon input">
+                <input type="text" placeholder="关键字（标题/分类）">
+            </div>
+            <button class="ui positive button"><i class="search icon"></i>搜索</button>
+        </div>
+    </div>
+    <div>
+        <table id="demo" lay-filter="test"></table>
+    </div>
+</div>
+<script th:src="@{/layui/layui.all.js}"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //执行渲染
+        table.render({
+            url:'/admin/listComment',
+            method:'get',
+            elem: '#demo',
+            height: 'auto',
+            request:{pageName:'current',limitName:'size'},
+            page:true,
+            cols: [
+                [
+                    {type:'checkbox'},
+                    {field: 'commentBody', title: '评论内容', width:250},
+                    {field: 'commentCreateTime', title: '评论时间', width:210, sort: true,templet:function(d){
+                            return layui.util.toDateString(d.commentCreateTime,'yyyy-MM-dd HH:mm:ss');}
+                    },
+                    {field: 'commentator', title: '评论人名称', width:210},
+                    {field: 'email', title: '评论人邮箱', width: 210},
+                    {field: 'commentStatus', title: '状态', width: 210, sort: true},
+                    {field: 'replyBody', title: '回复内容', width: 210, sort: true}
+                ]
+            ]
+        });
+    });
+</script>
 </body>
 </html>

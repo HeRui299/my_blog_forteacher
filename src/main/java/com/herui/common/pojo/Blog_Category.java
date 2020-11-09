@@ -1,5 +1,6 @@
 package com.herui.common.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Data
 public class Blog_Category {
 
-    @TableId("category_id")
+    @TableId(value = "category_id",type = IdType.AUTO)
     // 分类表主键
     private Integer categoryId;
 
@@ -31,7 +32,7 @@ public class Blog_Category {
     // 是否删除 0 = 否 1 = 是
     private Integer isDeleted;
 
-    @TableField("create_time")
+    @TableField(value = "create_time",update = "now()")
     // 创建时间
     private Date createTime;
 }
