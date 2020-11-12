@@ -2,4 +2,4 @@
 
 ![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/1.png)
 
-![哈哈哈]https://github.com/HeRui299/my_blog_forteacher/blob/master/2.png
+![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/2.png)
