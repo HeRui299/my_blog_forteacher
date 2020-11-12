@@ -47,9 +47,9 @@
             <span>系统管理</span>
         </div>
         <div class="content">
-            <p><i class="wrench icon"></i><a href="javascript:loadHTML('setting.html')">系统配置</a></li></p>
-            <p><i class="key icon"></i><a href="javascript:loadHTML('updatePassword.html')">修改密码</a></li></p>
-            <p><i class="power off icon"></i><a href="#">安全退出</a></li></p>
+            <p><i class="wrench icon"></i><a href="javascript:loadHTML('/admin/setting.html')">系统配置</a></li></p>
+            <p><i class="key icon"></i><a href="javascript:loadHTML('/admin/updatePassword.html')">修改密码</a></li></p>
+            <p><i class="power off icon"></i><a th:href="@{/admin/logout}">安全退出</a></li></p>
         </div>
     </div>
 </div>
@@ -60,7 +60,7 @@
         <i class="sliders horizontal icon"></i>
         <span style="color: gray;padding-left: 10px">Dashboard</span>
         <span class="top-icon2"><i class="user icon"></i><span style="color: gray;margin-left: 5px;">作者</span></span>
-        <span class="top-icon1"><i class="paper plane icon"></i><span style="color: gray;margin-left: 5px;">博客首页</span></span>
+        <span class="top-icon1"><i class="paper plane icon"></i><a th:href="@{/}" style="color: gray;margin-left: 5px;">博客首页</a></span>
     </p>
 </div>
 
@@ -75,20 +75,21 @@
     $('.ui.accordion').accordion();
 
     $(function () {
-        $(".content1").load("Dashboard.html");
+        $(".content1").load("/admin/Dashboard");
     });
 
     function loadHTML(url) {
+        $(".content p").each(function (i) {
+            $(this).click(function () {
+                $(this).addClass("active1");
+                $(".content p").siblings().removeClass("active1");
+                $(this).addClass("active1");
+            });
+        });
         $(".content1").load(url);
     }
 
-    $(".content p").each(function (i) {
-        $(this).click(function () {
-            $(this).addClass("active1");
-            $(".content p").siblings().removeClass("active1");
-            $(this).addClass("active1");
-        });
-    });
+
 
 </script>
 </body>

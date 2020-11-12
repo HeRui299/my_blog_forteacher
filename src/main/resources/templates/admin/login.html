@@ -44,12 +44,16 @@
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 <script>
-        function chageKaptcha() {
-            //有些浏览器很智能发现请求的都是同一个请求就不会发起请求所以我们要骗一下浏览器，
-            // 每次都传个不同的参数
-            var path =  "/admin/kaptcha?p=" + Math.random();
-            $("#kaptcha").attr("src", path);
-        }
+    function chageKaptcha() {
+         //有些浏览器很智能发现请求的都是同一个请求就不会发起请求所以我们要骗一下浏览器，
+         // 每次都传个不同的参数
+         var path =  "/admin/kaptcha?p=" + Math.random();
+         $("#kaptcha").attr("src", path);
+    }
+
+    setTimeout(function () {
+        chageKaptcha();
+    }, 60000);
 
     function login(){
         var username = $("input[name='loginUserName']").val();

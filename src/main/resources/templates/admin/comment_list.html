@@ -15,47 +15,149 @@
             <h3>评论管理</h3>
         </div>
     </div>
-    <div class="ui grid">
-        <div class="left aligned column">
-            <button class="ui primary button"><i class="check icon"></i>批量审核</button>
-            <button class="ui positive button"><i class="edit icon"></i>回复</button>
-            <button class="ui Red button"><i class="trash alternate icon"></i>批量删除</button>
-            <div class="ui small icon input">
-                <input type="text" placeholder="关键字（标题/分类）">
+    <!-- 头部工具栏 -->
+    <script type="text/html" id="toolbarDemo">
+        <div class="ui grid">
+            <div class="left aligned column">
+                <button class="ui primary button" lay-event="update"><i class="plus icon"></i>批量审核</button>
+                <button class="layui-btn layui-btn-danger" lay-event="delete"><i class="trash alternate icon"></i>刪除<span class="layui-badge " id="checkedNum">0</span></button>
             </div>
-            <button class="ui positive button"><i class="search icon"></i>搜索</button>
         </div>
-    </div>
-    <div>
+    </script>
+
+    <!-- table表格内的工具栏 -->
+    <script type="text/html" id="TableToolDemo">
+        <button class="ui mini positive button" lay-event="add"><i class="share icon"></i>回复</button>
+    </script>
         <table id="demo" lay-filter="test"></table>
     </div>
 </div>
 <script th:src="@{/layui/layui.all.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 <script>
-    layui.use('table', function(){
+    layui.use(['table','form'], function(){
         var table = layui.table;
-
+        var form = layui.form;
         //执行渲染
         table.render({
-            url:'/admin/listComment',
+            url:'/comment/list',
             method:'get',
+            width:'1300',
             elem: '#demo',
             height: 'auto',
+            defaultToolbar:false,
+            id : 'idTest',
+            toolbar: '#toolbarDemo',
             request:{pageName:'current',limitName:'size'},
             page:true,
             cols: [
                 [
-                    {type:'checkbox'},
-                    {field: 'commentBody', title: '评论内容', width:250},
-                    {field: 'commentCreateTime', title: '评论时间', width:210, sort: true,templet:function(d){
+                    {type:'checkbox',field: '123'},
+                    {field: 'commentId',hide:true},
+                    {field: 'commentBody', title: '评论内容'},
+                    {field: 'commentCreateTime', title: '评论时间',templet:function(d){
                             return layui.util.toDateString(d.commentCreateTime,'yyyy-MM-dd HH:mm:ss');}
                     },
-                    {field: 'commentator', title: '评论人名称', width:210},
-                    {field: 'email', title: '评论人邮箱', width: 210},
-                    {field: 'commentStatus', title: '状态', width: 210, sort: true},
-                    {field: 'replyBody', title: '回复内容', width: 210, sort: true}
+                    {field: 'commentator', title: '评论人名称'},
+                    {field: 'email', title: '评论人邮箱',},
+                    {field: 'commentStatus',title: '状态',templet:function (d) {
+                            if(d.commentStatus!=0){
+                                return '<button class="layui-btn layui-btn-sm layui-btn-checked">已审核</button>';
+                            }else{
+                                return '<button class="layui-btn layui-btn-sm layui-btn-disabled">未审核</button>';
+                            }
+                        }
+                    },
+                    {field: 'replyBody', title: '回复内容'},
+                    {title: '操作',toolbar:'#TableToolDemo'}
                 ]
             ]
+        });
+
+        // 监听checkbox
+        table.on('checkbox(test)',function(obj){
+            var checkStatus = table.checkStatus('idTest')
+                ,data = checkStatus.data;
+            $("#checkedNum").html(data.length);
+        });
+
+        //监听头部工具栏
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                case 'update':
+                    if(checkStatus.data.length==0){
+                        layer.msg("至少选中一行")
+                    }else{
+                        var isStr="";
+                        for(var i=0; i<checkStatus.data.length; i++){
+                            if(i !=checkStatus.data.length){ // 这里就是判断到最后一个，如果是最后一个不加逗号。
+                                isStr += checkStatus.data[i].commentId +",";
+                            }else{
+                                isStr += checkStatus.data[i].commentId;
+                            }
+                        }
+                        $.get('/comment/updateStatus',{"ids":isStr},function (result) {
+                            if(result.msg=="修改成功"){
+                                layer.msg("审核通过",{time:1000,icon:1},function(){
+                                    table.reload('idTest', {
+                                        url: '/comment/list'
+                                        ,page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                    }, 'data');
+                                });
+                            }
+                        });
+                    }
+                    break;
+                case 'delete':
+                    if(checkStatus.data.length==0){
+                        layer.msg("至少选中一行")
+                    }else{
+                        layer.confirm("确定删除<span style='color:red'>"+checkStatus.data.length+"</span>条数据?",function(index){
+                            layer.close(index);
+                            var isStr="";
+                            for(var i=0; i<checkStatus.data.length; i++){
+                                if(i!=checkStatus.data.length){ // 这里就是判断到最后一个，如果是最后一个不加逗号。
+                                    isStr += checkStatus.data[i].commentId+",";
+                                }else{
+                                    isStr += checkStatus.data[i].commentId;
+                                }
+                            }
+                            $.ajax({
+                                url:'/comment/delete',
+                                type:'post',
+                                data:{"ids":isStr},
+                                beforeSend:function(){
+                                    layer.msg("正在删除中",{time:1000,icon:16},function(){
+                                    });
+                                },
+                                success:function(result){
+                                    if(result.msg=="删除成功"){
+                                        layer.msg("删除成功",{time:1000,icon:1},function(){
+                                            table.reload('idTest', {
+                                                url: '/comment/list'
+                                                ,page: {
+                                                    curr: 1 //重新从第 1 页开始
+                                                }
+                                            }, 'data');
+                                        });
+                                    }
+                                }
+                            });
+                        });
+                    }
+                    break;
+            };
+        });
+        // 监听表格内的工具栏
+        table.on('tool(test)', function(obj) {
+            var layEvent = obj.event;
+            var data = obj.data
+            if(layEvent === 'add'){
+                    layer_show('编辑分类', '/comment/toUpdateComment/' + data.commentId);
+            }
         });
     });
 </script>

@@ -1,10 +1,10 @@
 package com.herui.common.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -13,7 +13,7 @@ import java.util.Date;
 public class Comment {
 
     // 主键
-    @TableId("comment_id")
+    @TableId(value = "comment_id",type = IdType.AUTO)
     private Integer commentId;
 
     // 对应的Blog
@@ -37,7 +37,7 @@ public class Comment {
     private String commentBody;
 
     // 评论提交时间
-    @TableField("comment_create_time")
+    @TableField(value = "comment_create_time",update = "now()")
     private Date commentCreateTime;
 
     //评论时的ip地址
@@ -49,12 +49,12 @@ public class Comment {
     private String replyBody;
 
     // 回复时间
-    @TableField("reply_create_time")
+    @TableField(value = "reply_create_time",update = "now()")
     private Date replyCreateTime;
 
     // 是否审核通过 0-未审核 1- 审核通过
     @TableField("comment_status")
-    private boolean commentStatus;
+    private Integer commentStatus;
 
     // 是否删除
     @TableField("is_deleted")

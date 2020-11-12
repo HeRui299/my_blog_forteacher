@@ -17,21 +17,23 @@
                     <div class="field">
                         <input type="text" name="shipping[title]" placeholder="*请输入文章标题（必填）">
                     </div>
+                    <!-- 标签 -->
                     <div class="field">
                         <div class="ui left labeled action input">
                             <div class="ui selection fluid multiple search dropdown">
-                                <input type="hidden" name="tag">
+                                <input type="hidden" name="blogTags">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">标签</div>
-                                <div class="menu">
-                                    <div class="item" data-value="1">猪</div>
-                                    <div class="item" data-value="2">狗</div>
+                                <div id="tag" class="menu">
+<!--                                    <div class="item" data-value="1">猪</div>-->
+<!--                                    <div class="item" data-value="2">狗</div>-->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- 分类 -->
             <div class="field">
                     <div class="two fields">
                         <div class="field">
@@ -40,30 +42,22 @@
                         <div class="field">
                             <div class="ui left labeled action input">
                                 <div class="ui selection fluid multiple search dropdown">
-                                    <input type="hidden" name="tag">
+                                    <input type="hidden" name="blogCategoryName">
                                     <i class="dropdown icon"></i>
                                     <div class="default text">分类</div>
-                                    <div class="menu">
-                                        <div class="item" data-value="1">Java</div>
-                                        <div class="item" data-value="2">JavaScript</div>
+                                    <div id="type" class="menu">
+<!--                                        <div class="item" data-value="1">Java</div>-->
+<!--                                        <div class="item" data-value="2">JavaScript</div>-->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
             </div>
+            <!-- 博客内容 -->
             <div class="field">
                 <div id="md-content" style="z-index: 1 !important;">
-                    <textarea placeholder="博客内容" name="content" style="display: none">
-                        [TOC]
-#### Disabled options
-
-- TeX (Based on KaTeX);
-- Emoji;
-- Task lists;
-- HTML tags decode;
-- Flowchart and Sequence Diagram;
-                    </textarea>
+                    <textarea placeholder="博客内容" name="content" style="display: none"></textarea>
                 </div>
             </div>
             <div class="field">
@@ -95,6 +89,26 @@
     $('.ui.dropdown').dropdown({
         on: 'hover'
     });
+
+    // 异步获取标签
+    $.get("/tag/list",function (result) {
+        var data = result.data;
+        $(data).each(function (index) {
+            $("#tag").append('<div class="item" data-value="'+data[index].tagName+'">'+data[index].tagName+'</div>')
+        })
+    });
+
+    // 异步获取分类标签
+    $.get("/type/list",function (result) {
+        var data = result.data;
+        $(data).each(function (index) {
+            $("#type").append('<div class="item" data-value="'+data[index].categoryName+'">'+data[index].categoryName+'</div>')
+        })
+    });
+
+    // 表单提交
+
+
 </script>
 </body>
 </html>

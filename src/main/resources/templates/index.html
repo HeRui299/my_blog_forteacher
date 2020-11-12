@@ -121,7 +121,7 @@
     // 异步加载浏览量最多标签
     $.get("/blog_views",function (data) {
         $(data).each(function (index) {
-            $("#rightop-div-2").append('<p><a href="#" style="color: black">'+data[index].blogTitle+'</a>></p>')
+            $("#rightop-div-2").append('<p><a href="#" style="color: black">'+data[index].blogTitle+'</a></p>')
         })
     });
 

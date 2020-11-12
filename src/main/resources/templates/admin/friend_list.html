@@ -42,7 +42,7 @@
 
         //执行渲染
         table.render({
-            url:'/admin/listLink',
+            url:'/link/list',
             method:'get',
             width:'1300',
             id : 'idTest',
@@ -80,7 +80,7 @@
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
                 case 'add':
-                    layer_show('新增标签','/admin/addLink');
+                    layer_show('新增标签','/link/add');
                     break;
                 case 'delete':
                     if(checkStatus.data.length==0){
@@ -97,7 +97,7 @@
                                 }
                             }
                             $.ajax({
-                                url:'/admin/deleteLink',
+                                url:'/link/delete',
                                 type:'post',
                                 data:{"ids":isStr},
                                 beforeSend:function(){
@@ -108,7 +108,7 @@
                                     if(result.msg=="删除成功"){
                                         layer.msg("删除成功",{time:1000,icon:1},function(){
                                             table.reload('idTest', {
-                                                url: '/admin/listLink'
+                                                url: '/link/list'
                                                 ,page: {
                                                     curr: 1 //重新从第 1 页开始
                                                 }
@@ -127,7 +127,7 @@
             var layEvent = obj.event;
             var data = obj.data
             if(layEvent === 'update'){
-                layer_show('编辑链接','/admin/toUpdateLink/'+data.linkId);
+                layer_show('编辑链接','/link/toUpdateLink/'+data.linkId);
             }
         });
     });

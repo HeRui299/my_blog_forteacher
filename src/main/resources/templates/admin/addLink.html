@@ -84,7 +84,7 @@
         // 监听表单提交
         form.on('submit(demo1)', function(data){
                 // 提交表单数据
-                $.post("/admin/insertLink",data.field,function (data) {
+                $.post("/link/add",data.field,function (data) {
                     if(data.code == 0){
                         layer_close();
                         parent.layui.table.reload("idTest")

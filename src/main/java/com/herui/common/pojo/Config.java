@@ -16,9 +16,9 @@ public class Config {
     @TableField("config_value")
     private String configValue;
 
-    @TableField("create_time")
+    @TableField(value = "create_time",update = "now()")
     private Date createTime;
 
-    @TableField("update_time")
+    @TableField(value = "update_time",update = "now()")
     private Date updateTime;
 }

@@ -15,17 +15,20 @@
             <h3>博客管理</h3>
         </div>
     </div>
-    <div class="ui grid">
-        <div class="left aligned column">
-            <button class="ui primary button"><i class="plus icon"></i>新增</button>
-            <button class="ui positive button"><i class="edit icon"></i>修改</button>
-            <button class="ui Red button"><i class="trash alternate icon"></i>刪除</button>
-            <div class="ui small icon input">
-                <input type="text" placeholder="关键字（标题/分类）">
+    <!-- 头部工具栏 -->
+    <script type="text/html" id="toolbarDemo">
+        <div class="ui grid">
+            <div class="left aligned column">
+                <button class="ui primary button" lay-event="add"><i class="plus icon"></i>新增</button>
+                <button class="layui-btn layui-btn-danger" lay-event="delete"><i class="trash alternate icon"></i>刪除<span class="layui-badge " id="checkedNum">0</span></button>
             </div>
-            <button class="ui positive button"><i class="search icon"></i>搜索</button>
         </div>
-    </div>
+    </script>
+
+    <!-- table表格内的工具栏 -->
+    <script type="text/html" id="TableToolDemo">
+        <button class="ui mini positive button" lay-event="update"><i class="edit icon"></i>修改</button>
+    </script>
     <div>
         <table id="demo" lay-filter="test"></table>
     </div>
@@ -37,23 +40,27 @@
 
         //执行渲染
         table.render({
-            url:'/admin/listBlog',
+            url:'/blog/list',
             method:'get',
+            width:'1300',
             elem: '#demo',
             height: 'auto',
             page:true,
+            toolbar: '#toolbarDemo',
+            defaultToolbar:false,
             request:{pageName:'current',limitName:'size'},
             cols: [
                 [
                     {type:'checkbox'},
-                    {field: 'blogTitle', title: '标题', width:250},
-                    {field: 'blogCoverImage', title: '预览图', width:210, sort: true},
-                    {field: 'blogViews', title: '浏览量', width:210},
-                    {field: 'blogStatus', title: '状态', width: 210},
-                    {field: 'blogCategoryName', title: '博客分类', width: 210, sort: true},
-                    {field: 'createTime', title: '添加时间', width: 210, sort: true,templet:function(d){
+                    {field: 'blogTitle', title: '标题'},
+                    {field: 'blogCoverImage', title: '预览图', sort: true},
+                    {field: 'blogViews', title: '浏览量'},
+                    {field: 'blogStatus', title: '状态'},
+                    {field: 'blogCategoryName', title: '博客分类', sort: true},
+                    {field: 'createTime', title: '添加时间', sort: true,templet:function(d){
                         return layui.util.toDateString(d.createTime,'yyyy-MM-dd HH:mm:ss');}
-                        }
+                        },
+                    {title: '操作',toolbar:'#TableToolDemo'}
                 ]
             ]
         });

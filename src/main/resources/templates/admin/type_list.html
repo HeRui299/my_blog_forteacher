@@ -42,7 +42,7 @@
 
         //执行渲染
         table.render({
-            url:'/admin/listType',
+            url:'/type/list',
             width:'1300',
             method:'get',
             elem: '#demo',
@@ -79,7 +79,7 @@
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
                 case 'add':
-                    layer_show('新增分类','admin/addType');
+                    layer_show('新增分类','/type/add');
                     break;
                 case 'delete':
                     if(checkStatus.data.length==0){
@@ -96,7 +96,7 @@
                                 }
                             }
                             $.ajax({
-                                url:'/admin/deleteType',
+                                url:'/type/delete',
                                 type:'post',
                                 data:{"ids":isStr},
                                 beforeSend:function(){
@@ -107,7 +107,7 @@
                                     if(result.msg=="删除成功"){
                                         layer.msg("删除成功",{time:1000,icon:1},function(){
                                             table.reload('idTest', {
-                                                url: 'admin/listType'
+                                                url: '/type/list'
                                                 ,page: {
                                                     curr: 1 //重新从第 1 页开始
                                                 }
@@ -127,10 +127,9 @@
             var layEvent = obj.event;
             var data = obj.data
             if(layEvent === 'update'){
-                layer_show('编辑分类','/admin/toUpdateType/'+data.categoryId);
+                layer_show('编辑分类','/type/toUpdateType/'+data.categoryId);
             }
         });
-
     });
 </script>
 </body>

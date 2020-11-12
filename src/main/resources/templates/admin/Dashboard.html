@@ -15,7 +15,7 @@
     <div class="index-div index-div-1">
         <span>新增博客</span>
         <small>记住心中所想</small>
-        <div class="index-div-div_public index-div-div-blue">
+        <div class="index-div-div_public index-div-div-blue" onclick="loadHTML('/admin/addBlog.html')">
             let's go <i class="sign-out mini icon"></i>
         </div>
         <div class="div-icon">
@@ -24,9 +24,9 @@
     </div>
 
     <div class="index-div index-div-2">
-        <span>4</span>
+        <span th:text="${blogCount}">4</span>
         <small>总文章数</small>
-        <div class="index-div-div_public index-div-div-green">
+        <div class="index-div-div_public index-div-div-green" onclick="loadHTML('/admin/blog_list.html')">
             More info <i class="sign-out mini icon"></i>
         </div>
         <div class="div-icon">
@@ -35,9 +35,9 @@
     </div>
 
     <div class="index-div index-div-3">
-        <span>1</span>
+        <span th:text="${commentCount}">1</span>
         <small>收到评论数</small>
-        <div class="index-div-div_public index-div-div-3">
+        <div class="index-div-div_public index-div-div-3" onclick="loadHTML('/admin/comment_list.html')">
             More info <i class="sign-out mini icon"></i>
         </div>
         <div class="div-icon">
@@ -46,9 +46,9 @@
     </div>
 
     <div class="index-div index-div-4">
-        <span>3</span>
+        <span th:text="${categoryCount}">3</span>
         <small>分类数量</small>
-        <div class="index-div-div_public index-div-div-yellow">
+        <div class="index-div-div_public index-div-div-yellow" onclick="loadHTML('/admin/type_list.html')">
             More info <i class="sign-out mini icon"></i>
         </div>
         <div class="div-icon">
@@ -57,9 +57,9 @@
     </div>
 
     <div class="index-div index-div-5">
-        <span>12</span>
+        <span th:text="${tagCount}">12</span>
         <small>标签总量</small>
-        <div class="index-div-div_public index-div-div-red">
+        <div class="index-div-div_public index-div-div-red" onclick="loadHTML('/admin/tags_list.html')">
             More info <i class="sign-out mini icon"></i>
         </div>
         <div class="div-icon">
@@ -68,9 +68,9 @@
     </div>
 
     <div class="index-div index-div-6">
-        <span>12</span>
+        <span th:text="${linkCount}">12</span>
         <small>友情链接</small>
-        <div class="index-div-div_public index-div-div-black">
+        <div class="index-div-div_public index-div-div-black" onclick="loadHTML('/admin/link_list.html')">
             More info <i class="sign-out mini icon"></i>
         </div>
         <div class="div-icon">
@@ -80,8 +80,5 @@
 
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-<script>
-
-</script>
 </body>
 </html>

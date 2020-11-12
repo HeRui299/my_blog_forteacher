@@ -1,5 +1,8 @@
 package com.herui.common.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,6 +14,7 @@ import java.util.Date;
 public class Blog {
 
     // 博客id
+    @TableId(type = IdType.AUTO)
     private Integer blogId;
 
     // 博客标题
@@ -44,14 +48,16 @@ public class Blog {
     private Integer blogViews;
 
     // 0-允许评论 1-不允许评论
-    private boolean enableComment;
+    private Integer enableComment;
 
     // 是否删除 0=否 1=是
-    private boolean isDeleted;
+    private Integer isDeleted;
 
     // 添加时间
+    @TableField(update = "now()")
     private Date createTime;
 
     // 修改时间
+    @TableField(update = "now()")
     private Date updateTime;
 }

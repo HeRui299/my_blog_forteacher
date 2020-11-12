@@ -1,10 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>用户设置</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <base th:href="@{/}">
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}"/>
 </head>
 <body>
-    设置
+
+<div class="ui three column doubling stackable grid">
+
+    <div class="column">
+        <div class="ui teal segment">
+            <form class="ui form" id="WebSite">
+
+                <h4 class="ui dividing header">站点信息</h4>
+                <div class="field">
+                    <label>站点名称</label>
+                    <div class="field">
+                        <input type="text" name="websiteName">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>站点描述</label>
+                    <div class="field">
+                        <input type="text" name="websiteDescription">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>站点Logo</label>
+                    <div class="field">
+                        <input type="text" name="websiteLogo">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>favicon.ico</label>
+                    <div class="field">
+                        <input type="text" name="websiteIcon">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="fields">
+                        <div class="ten wide field">
+                        </div>
+                        <div class="five wide field">
+                            <button type="button" class="ui red small button" onclick="updateWebsite()">确认修改</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="ui teal segment">
+            <form class="ui form" id="Your">
+
+                <h4 class="ui dividing header">个人信息</h4>
+                <div class="field">
+                    <label>个人头像</label>
+                    <div class="field">
+                        <input type="text" name="yourAvatar">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>个人名称</label>
+                    <div class="field">
+                        <input type="text" name="yourName">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>个人邮箱</label>
+                    <div class="field">
+                        <input type="text" name="yourEmail">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="fields">
+                        <div class="ten wide field">
+                        </div>
+                        <div class="five wide field">
+                            <button type="button" class="ui red small button" onclick="updateYour()">确认修改</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="ui teal segment">
+            <form class="ui form" id="Footer">
+
+                <h4 class="ui dividing header">底部设置</h4>
+                <div class="field">
+                    <label>底部About</label>
+                    <div class="field">
+                        <input type="text" name="footerAbout">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>底部备案号</label>
+                    <div class="field">
+                        <input type="text" name="footerICP">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>底部Copy Right</label>
+                    <div class="field">
+                        <input type="text" name="footerCopyRight">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>底部Powered By</label>
+                    <div class="field">
+                        <input type="text" name="footerPoweredBy">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>底部Powered By URL</label>
+                    <div class="field">
+                        <input type="text" name="footerPoweredByURL">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="fields">
+                        <div class="ten wide field">
+                        </div>
+                        <div class="five wide field">
+                            <button type="button" class="ui red small button" onclick="updateFooter()">确认修改</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{/layui/layui.all.js}"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script>
+
+    $(function () {
+        loadingFooter();
+        loadingYour();
+        loadingWebsite();
+    })
+
+    // 异步加载底部信息
+    function loadingFooter() {
+        $.get("/config/footer", function (data) {
+            $(data).each(function (i) {
+                $("input[name='" + data[i].configName + "']").val(data[i].configValue);
+            });
+        });
+    }
+
+    // 异步加载个人信息
+    function loadingYour() {
+        $.get("/config/your", function (data) {
+            $(data).each(function (i) {
+                $("input[name='" + data[i].configName + "']").val(data[i].configValue);
+            });
+        });
+    }
+
+    // 异步加载站点信息
+    function loadingWebsite() {
+        $.get("/config/website", function (data) {
+            $(data).each(function (i) {
+                $("input[name='" + data[i].configName + "']").val(data[i].configValue);
+            });
+        });
+    }
+
+    // 异步修改底部信息
+    function updateFooter() {
+        $.get("/config/updateFooter", $("#Footer").serialize(), function (data) {
+            layer.msg(data.msg,{icon:1,offset:'20px'},function () {
+                loadingFooter();
+            });
+        });
+    }
+
+
+    // 异步修改个人信息
+    function updateYour(){
+        $.get("/config/updateYour", $("#Your").serialize(), function (data) {
+            layer.msg(data.msg,{icon:1,offset:'20px'},function () {
+                loadingYour();
+            });
+        });
+    }
+
+    // 异步修改站点信息
+    function updateWebsite(){
+        $.get("/config/updateWebsite", $("#WebSite").serialize(), function (data) {
+            layer.msg(data.msg,{icon:1,offset:'20px'},function () {
+                loadingWebsite();
+            });
+        });
+    }
+</script>
 </body>
 </html>

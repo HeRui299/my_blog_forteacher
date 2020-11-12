@@ -42,7 +42,7 @@
 
         //执行渲染
         table.render({
-            url:'/admin/listTag',
+            url:'/tag/list',
             width:'1300',
             method:'get',
             id : 'idTest',
@@ -77,7 +77,7 @@
             var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
                 case 'add':
-                    layer_show('新增标签','/admin/addTag');
+                    layer_show('新增标签','/tag/add');
                     break;
                 case 'delete':
                     if(checkStatus.data.length==0){
@@ -94,7 +94,7 @@
                                 }
                             }
                             $.ajax({
-                                url:'/admin/deleteTag',
+                                url:'/tag/delete',
                                 type:'post',
                                 data:{"ids":isStr},
                                 beforeSend:function(){
@@ -105,7 +105,7 @@
                                     if(result.msg=="删除成功"){
                                         layer.msg("删除成功",{time:1000,icon:1},function(){
                                             table.reload('idTest', {
-                                                url: '/admin/listTag'
+                                                url: '/tag/list'
                                                 ,page: {
                                                     curr: 1 //重新从第 1 页开始
                                                 }
@@ -124,7 +124,7 @@
             var layEvent = obj.event;
             var data = obj.data
             if(layEvent === 'update'){
-                layer_show('编辑分类','/admin/toUpdateTag/'+data.tagId);
+                layer_show('编辑分类','/tag/toUpdateTag/'+data.tagId);
             }
         });
     });
