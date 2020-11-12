@@ -3,3 +3,21 @@
 ![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/1.png)
 
 ![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/2.png)
+
+![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/3.png)
+
+![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/4.png)
+
+![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/5.png)
+
+![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/6.png)
+
+![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/7.png)
+
+![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/8.png)
+
+![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/9.png)
+
+![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/10.png)
+
+![image](https://github.com/HeRui299/my_blog_forteacher/blob/master/12.png)
