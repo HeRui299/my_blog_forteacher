@@ -112,6 +112,7 @@ public class AdminController {
         String kaptchaOwner = ResponseUtil.generateUUID();
         Cookie cookie = new Cookie("kaptchaOwner",text);
         cookie.setMaxAge(60);
+        cookie.setPath("/");
         response.addCookie(cookie);
         // 将图片输出给浏览器
         response.setContentType("image/png");

@@ -25,7 +25,6 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     @Override
     protected void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/about").setViewName("about");
         registry.addViewController("/friend").setViewName("friend");
         registry.addViewController("/admin").setViewName("admin/login");
         registry.addViewController("/admin/index").setViewName("admin/index");

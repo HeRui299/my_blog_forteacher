@@ -30,10 +30,12 @@
         <button class="ui mini positive button" lay-event="update"><i class="edit icon"></i>修改</button>
     </script>
     <div>
+        <img  onerror="javascript" src="" alt="">
         <table id="demo" lay-filter="test"></table>
     </div>
 </div>
 <script th:src="@{/layui/layui.all.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 <script>
     layui.use('table', function(){
         var table = layui.table;
@@ -45,6 +47,7 @@
             width:'1300',
             elem: '#demo',
             height: 'auto',
+            id:'idTest',
             page:true,
             toolbar: '#toolbarDemo',
             defaultToolbar:false,
@@ -52,8 +55,11 @@
             cols: [
                 [
                     {type:'checkbox'},
+                    {field:'blogId',hide:true},
                     {field: 'blogTitle', title: '标题'},
-                    {field: 'blogCoverImage', title: '预览图', sort: true},
+                    {field: 'blogCoverImage', title: '预览图', sort: true,templet:function (d) {
+                        return '<img onerror="javascript:this.src=\'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1907518264,4069889524&fm=26&gp=0.jpg\'" src='+d.blogCoverImage+' class="layui-nav-img">'
+                    }},
                     {field: 'blogViews', title: '浏览量'},
                     {field: 'blogStatus', title: '状态'},
                     {field: 'blogCategoryName', title: '博客分类', sort: true},
@@ -64,7 +70,75 @@
                 ]
             ]
         });
+
+        // 监听checkbox
+        table.on('checkbox(test)',function(obj){
+            var checkStatus = table.checkStatus('idTest')
+                ,data = checkStatus.data;
+            $("#checkedNum").html(data.length);
+        });
+
+        //监听头部工具栏
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch(obj.event){
+                // 新增博客
+                case 'add':
+                    layer_show("新增博客","/blog/addBlog");
+                    break;
+                case 'delete':
+                    if(checkStatus.data.length==0){
+                        layer.msg("至少选中一行")
+                    }else{
+                        layer.confirm("确定删除<span style='color:red'>"+checkStatus.data.length+"</span>条数据?",function(index){
+                            layer.close(index);
+                            var isStr="";
+                            for(var i=0; i<checkStatus.data.length; i++){
+                                if(i!=checkStatus.data.length){ // 这里就是判断到最后一个，如果是最后一个不加逗号。
+                                    isStr += checkStatus.data[i].blogId+",";
+                                }else{
+                                    isStr += checkStatus.data[i].blogId;
+                                }
+                            }
+                            $.ajax({
+                                url:'/blog/delete',
+                                type:'post',
+                                data:{"ids":isStr},
+                                beforeSend:function(){
+                                    layer.msg("正在删除中",{time:1000,icon:16},function(){
+                                    });
+                                },
+                                success:function(result){
+                                    if(result.msg=="删除成功"){
+                                        layer.msg("删除成功",{time:1000,icon:1},function(){
+                                            table.reload('idTest', {
+                                                url: '/blog/list'
+                                                ,page: {
+                                                    curr: 1 //重新从第 1 页开始
+                                                }
+                                            }, 'data');
+                                        });
+                                    }
+                                }
+                            });
+                        });
+                    }
+                    break;
+            };
+        });
+
+        // 监听表格内的工具栏
+        table.on('tool(test)', function(obj) {
+            var layEvent = obj.event;
+            var data = obj.data
+            if(layEvent === 'update'){
+                layer_show("编辑博客","/blog/toUpdateBlog/"+data.blogId);
+            }
+        });
+
     });
+
+
 </script>
 </body>
 </html>

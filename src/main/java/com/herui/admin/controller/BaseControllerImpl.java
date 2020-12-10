@@ -14,8 +14,7 @@ public class BaseControllerImpl<S extends ServiceImpl, T> implements BaseControl
     // 注入Service
     @Autowired
     private S s;
-
-    // 如果Controller层要自己定义方法，需要用到Service组件就用这个方法返回给他
+     // 如果Controller层要自己定义方法，需要用到Service组件就用这个方法返回给他
     public S getServiceImpl(){
         return this.s;
     }
